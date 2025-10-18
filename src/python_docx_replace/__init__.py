@@ -22,7 +22,7 @@ def docx_replace(doc, **kwargs: str) -> None:
     More information: https://github.com/ivanbicalho/python-docx-replace
     """
     for key, value in kwargs.items():
-        key = f"${{{key}}}"
+        key = f"{{{key}}}"
         for p in Paragraph.get_all(doc):
             paragraph = Paragraph(p)
             paragraph.replace_key(key, str(value))
@@ -101,7 +101,7 @@ def docx_get_keys(doc: Any) -> List[str]:
     result = set()  # unique items
     for p in Paragraph.get_all(doc):
         paragraph = Paragraph(p)
-        matches = re.finditer(r"\$\{([^{}]+)\}", paragraph.get_text())
+        matches = re.finditer(r"\{([^{}]+)\}", paragraph.get_text())
         for match in matches:
             result.add(match.groups()[0])
     return list(result)
